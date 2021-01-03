@@ -5,11 +5,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
+    public GameObject InteractableIcon;
     public Rigidbody2D Rigidbody;
     public float PlayerSpeed;
-    public InputAction Input; // no need to initialize..why?
+    // public InputAction Input; // no need to initialize..why?
     
     private Vector2 _inputVector;
+    private Vector2 _boxSize = new Vector2(1.0f,1.0f);
 
     void Start()
     {
@@ -18,17 +20,48 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        _inputVector = Input.ReadValue<Vector2>();
         Rigidbody.velocity = _inputVector * PlayerSpeed;
     }
 
-    void OnEnable()
+    public void Interact(InputAction.CallbackContext context)
     {
-        Input.Enable();
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position,_boxSize,0,Vector2.zero);
+
+        if(hits.Length > 0)
+        {
+            foreach(RaycastHit2D rc in hits)
+            {
+                if(rc.transform.GetComponent<Interactable>())
+                {
+                    rc.transform.GetComponent<Interactable>().Interact(context);
+                    return;
+                }
+            }
+        }
+    }
+    
+    public void ReadMovement(InputAction.CallbackContext context)
+    {
+        _inputVector = context.ReadValue<Vector2>();
     }
 
-    void OnDisable()
+    public void OpenIcon()
     {
-        Input.Disable();
+        InteractableIcon.SetActive(true);
     }
+
+    public void CloseIcon()
+    {
+        InteractableIcon.SetActive(false);
+    }
+
+    // void OnEnable()
+    // {
+    //     Input.Enable();
+    // }
+
+    // void OnDisable()
+    // {
+    //     Input.Disable();
+    // }
 }
