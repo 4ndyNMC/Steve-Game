@@ -12,16 +12,20 @@ public abstract class Interactable : MonoBehaviour
         GetComponent<BoxCollider2D>().isTrigger = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Player"))
-            collision.GetComponent<PlayerInput>().OpenIcon();
-    }
+    // private void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     if(collision.CompareTag("Player"))
+    //     {
+    //         collision.GetComponent<PlayerInput>().OpenIcon();
+    //     }
+    // }
 
-    private void OnTriggerExit2D(Collider2D collision) 
-    {
-        if(collision.CompareTag("Player"))
-        collision.GetComponent<PlayerInput>().CloseIcon();
-    }
+    // private void OnTriggerExit2D(Collider2D collision) 
+    // {
+    //     if(collision.CompareTag("Player"))
+    //     {
+    //         collision.GetComponent<PlayerInput>().CloseIcon();
+    //     }
+    // }
     
 }

@@ -101,6 +101,33 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "ee07368e-7463-421f-9ff0-529569f3cbf5",
+            "actions": [
+                {
+                    "name": "SkipText",
+                    "type": "Button",
+                    "id": "810a4711-7a37-4248-a838-fc19b5c8dadd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d8adccd5-01d9-4edc-8ecc-facb3726fbf8",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkipText",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
