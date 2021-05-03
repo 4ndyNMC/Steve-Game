@@ -20,8 +20,8 @@ public class CameraController : MonoBehaviour
         _viewHeight = 2f * Cam.orthographicSize * Screen.height / Screen.width;
         _leftBound = TopLeftBorder.transform.position.x + _viewWidth/2f;
         _rightBound = BotRightBorder.transform.position.x - _viewWidth/2f;
-        _topBound = TopLeftBorder.transform.position.y - _viewHeight/1.5f;
         _botBound = BotRightBorder.transform.position.y + _viewHeight/1.5f;
+        _topBound = TopLeftBorder.transform.position.y - _viewHeight/1.5f;
 
         // Instantiate Camera Position.
         transform.position = new Vector3(Player.transform.position.x,

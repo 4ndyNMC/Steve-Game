@@ -11,8 +11,8 @@ public class DialogueManager : MonoBehaviour
     public PlayerInput Input;
 
     [SerializeField] private float _lettersPerSecond;
-    private Dialogue dialogue;
-    private int _currentLine = 0;
+    private Dialogue _dialogue;
+    private int _currentLine;
     private bool _isTyping;
 
     public static DialogueManager Instance { get; private set; }
@@ -20,15 +20,16 @@ public class DialogueManager : MonoBehaviour
     private void Awake() 
     {
         Instance = this;
+        _currentLine = 0;
     }
 
     public void ShowDialogue(Dialogue dialogue)
     {
-        this.dialogue = dialogue;
+        _dialogue = dialogue;
 
         Input.SwitchCurrentActionMap("UI");
         DialogueBox.SetActive(true);
-        StartCoroutine(TypeDialogue(dialogue.Lines[0]));
+        StartCoroutine(TypeDialogue(_dialogue.Lines[0]));
     }
 
     public void SkipDialogue(InputAction.CallbackContext context)
@@ -37,15 +38,15 @@ public class DialogueManager : MonoBehaviour
         {
             if(_isTyping)
             {
-                DialogueText.text = dialogue.Lines[_currentLine];
+                DialogueText.text = _dialogue.Lines[_currentLine];
                 _isTyping = false;
             }
             else
             {
                 _currentLine++;
-                if(_currentLine < dialogue.Lines.Count)
+                if(_currentLine < _dialogue.Lines.Count)
                 {
-                    StartCoroutine(TypeDialogue(dialogue.Lines[_currentLine]));
+                    StartCoroutine(TypeDialogue(_dialogue.Lines[_currentLine]));
                 }
                 else
                 {
@@ -56,16 +57,10 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void CloseDialogue()
-    {
-        Input.SwitchCurrentActionMap("Gameplay");
-        DialogueBox.SetActive(false);
-    }
-
     private IEnumerator TypeDialogue(string line)
     {
-        _isTyping = true;
         DialogueText.text = "";
+        _isTyping = true;
         foreach (var letter in line.ToCharArray())
         {
             if(_isTyping)
@@ -79,5 +74,11 @@ public class DialogueManager : MonoBehaviour
             }
         }
         _isTyping = false;
+    }
+
+    private void CloseDialogue()
+    {
+        Input.SwitchCurrentActionMap("Gameplay");
+        DialogueBox.SetActive(false);
     }
 }
