@@ -1,2 +1,2 @@
-# stevegame
-the game that steve and i make to not suck
+# Steve Game
+Game I made for Unity practice
